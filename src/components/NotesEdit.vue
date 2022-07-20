@@ -14,10 +14,19 @@ const content_id = ref(0);
 const user_id = ref("");
 
 const displayTitle = computed(() => {
-  return title.value;
+  if (title.value === "") {
+    return "タイトル";
+  } else {
+    return title.value;
+  }
 });
 
-const compiledMarkdown = computed(() => marked.parse(input.value, {}));
+const compiledMarkdown = computed(() =>
+  marked.parse(
+    input.value === "" ? "プレビューが表示されます…" : input.value,
+    {}
+  )
+);
 
 const loadArticle = _.debounce((e: Event) => {
   const target = e.target as HTMLInputElement;
@@ -118,7 +127,7 @@ defineExpose({
       ></textarea>
     </div>
     <div id="displayArea">
-      <h1 id="displayTitle">{{ displayTitle }}</h1>
+      <div id="displayTitle">{{ displayTitle }}</div>
       <div id="displayContents" v-html="compiledMarkdown"></div>
     </div>
   </main>
@@ -197,12 +206,13 @@ textarea.focas {
 }
 #displayTitle {
   display: block;
-  width: 90%;
+  width: 100%;
   margin: 10px;
+  font-size: 1.3rem;
 }
 #displayContents {
   display: block;
-  width: 90%;
+  width: 100%;
   height: 500px;
   margin: 10px;
 }
