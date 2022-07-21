@@ -111,39 +111,58 @@ defineExpose({
 
 <template>
   <main>
-    <div id="inputArea">
-      <div class="editor-titleBox-flexInput">
-        <textarea
-          id="title"
-          v-model="title"
-          placeholder="タイトルを入力..."
-        ></textarea>
-      </div>
+    <div class="titleArea">
       <textarea
-        id="contents"
+        class="title"
+        v-model="title"
+        placeholder="タイトルを入力..."
+      ></textarea>
+      <div class="displayTitle">{{ displayTitle }}</div>
+    </div>
+    <div class="contentsArea">
+      <textarea
+        class="contents"
         :value="input"
         @input="loadArticle"
         placeholder="Markdownで本文を入力..."
       ></textarea>
-    </div>
-    <div id="displayArea">
-      <div id="displayTitle">{{ displayTitle }}</div>
-      <div id="displayContents" v-html="compiledMarkdown"></div>
+      <div class="displayContents" v-html="compiledMarkdown"></div>
     </div>
   </main>
 </template>
 
 <style scoped>
 main {
-  display: flex;
+  display: block;
   width: auto;
   margin: 10px;
 }
-.editor-titleBox-flexInput {
+.titleArea {
+  display: flex;
+  width: 100%;
+}
+.title {
   display: block;
+  width: 50%;
+  margin: 10px;
+  color: #4d4d4d;
+  background: #fafafa;
+  resize: none;
+  padding: 10px;
+  font-size: 1.3rem;
+}
+.displayTitle {
+  display: block;
+  width: 50%;
+  margin: auto 10px;
+  font-size: 2rem;
+}
+.contentsArea {
+  display: flex;
   color: #4d4d4d;
   line-height: 1.6;
   font-size: 1.2rem;
+  width: 100%;
 }
 textarea {
   font-size: 100%;
@@ -179,48 +198,21 @@ textarea.focas {
   border-color: #327ac2;
   background: #ffffff;
 }
-#inputArea {
+.inputArea {
   display: block;
   width: 50%;
   margin: 10px;
 }
-#title {
+.contents {
   display: block;
-  width: 90%;
-  margin: 10px;
-  color: #4d4d4d;
-  background: #fafafa;
-  resize: none;
-  padding: 10px;
-}
-#contents {
-  display: block;
-  width: 90%;
+  width: 50%;
   height: 500px;
   margin: 10px;
 }
-#displayArea {
+.displayContents {
   display: block;
-  width: auto;
-  margin: 10px;
-}
-#displayTitle {
-  display: block;
-  width: 100%;
-  margin: 10px;
-  font-size: 1.3rem;
-}
-#displayContents {
-  display: block;
-  width: 100%;
+  width: 50%;
   height: 500px;
-  margin: 10px;
-}
-.editor-titleBox-flexInput-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  margin: 0 10px;
 }
 </style>
