@@ -120,6 +120,54 @@ const onKeyEnter = (e: Event) => {
   }
 };
 
+const onKeyTab = (e: Event) => {
+  // add 4 space
+  e.preventDefault();
+  const target = e.target as HTMLInputElement;
+  const sentence = target.value;
+  const currentPos = target.selectionStart ?? 0;
+  const lastReturnPos = sentence.substring(0, currentPos).lastIndexOf("\n");
+  target.value =
+    sentence.substring(0, lastReturnPos + 1) +
+    "    " +
+    sentence.substring(lastReturnPos + 1, lastReturnPos + 1 + sentence.length);
+  target.selectionStart = currentPos + 4;
+  target.selectionEnd = target.selectionStart;
+};
+
+const onKeyTabShift = (e: Event) => {
+  // delete 4 space
+  e.preventDefault();
+  const target = e.target as HTMLInputElement;
+  const sentence = target.value;
+  const currentPos = target.selectionStart ?? 0;
+  const lastReturnPos = sentence.substring(0, currentPos).lastIndexOf("\n");
+  const targetLine = sentence.substring(
+    lastReturnPos + 1,
+    lastReturnPos + 1 + sentence.length
+  );
+  let spaceCount = 0;
+  if (targetLine[0] === " ") {
+    if (targetLine[1] === " ") {
+      if (targetLine[2] === " ") {
+        if (targetLine[3] === " ") {
+          spaceCount = 4;
+        } else {
+          spaceCount = 3;
+        }
+      } else {
+        spaceCount = 2;
+      }
+    } else {
+      spaceCount = 1;
+    }
+  }
+  target.value =
+    sentence.substring(0, lastReturnPos + 1) + targetLine.slice(spaceCount);
+  target.selectionStart = currentPos - spaceCount;
+  target.selectionEnd = target.selectionStart;
+};
+
 onMounted(async () => {
   const databaseStore = useDatabaseStore();
   const id = Number(route.params.id);
@@ -152,6 +200,8 @@ defineExpose({
         :value="input"
         @input="loadArticle"
         @keydown.enter="onKeyEnter"
+        @keydown.tab.exact="onKeyTab"
+        @keydown.tab.shift="onKeyTabShift"
         placeholder="Markdownで本文を入力..."
       ></textarea>
       <div class="displayContents" v-html="compiledMarkdown"></div>
