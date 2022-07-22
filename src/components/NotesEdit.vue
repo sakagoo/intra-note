@@ -93,6 +93,33 @@ const update = async () => {
   });
 };
 
+const onKeyEnter = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  const sentence = target.value;
+  const pos = target.selectionStart ?? 0;
+  const lastReturnPos = sentence.substring(0, pos).lastIndexOf("\n");
+  let spaceCount = 0;
+  const arr = sentence.substring(lastReturnPos + 1).match(/^ +/);
+  if (arr == null) {
+    spaceCount = 0;
+  } else {
+    spaceCount = arr[0].length;
+  }
+  const leadingSpace = " ".repeat(spaceCount);
+
+  if (sentence[lastReturnPos + spaceCount + 1] === "-") {
+    e.preventDefault();
+    target.value =
+      sentence.substring(0, pos) +
+      "\n" +
+      leadingSpace +
+      "- " +
+      sentence.substring(pos, pos + sentence.length);
+    target.selectionStart = pos + spaceCount + 3;
+    target.selectionEnd = target.selectionStart;
+  }
+};
+
 onMounted(async () => {
   const databaseStore = useDatabaseStore();
   const id = Number(route.params.id);
@@ -124,6 +151,7 @@ defineExpose({
         class="contents"
         :value="input"
         @input="loadArticle"
+        @keydown.enter="onKeyEnter"
         placeholder="Markdownで本文を入力..."
       ></textarea>
       <div class="displayContents" v-html="compiledMarkdown"></div>
