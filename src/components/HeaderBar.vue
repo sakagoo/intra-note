@@ -3,14 +3,14 @@ import { ref } from "vue";
 
 const user_icon = ref();
 
-user_icon.value = "src/assets/スプラトゥーン3.jpeg";
+user_icon.value = "/img/スプラトゥーン3.jpeg";
 </script>
 
 <template>
   <header id="header">
     <nav class="headerNavigation">
       <div class="headerNavigation-serviceLogo">
-        <a href="/"><img alt="logo" src="@/assets/logo.svg" /> </a>
+        <a href="/"><img alt="logo" src="/img/logo.svg" /> </a>
       </div>
       <ul class="headerNavigation-menus">
         <li class="is-active">

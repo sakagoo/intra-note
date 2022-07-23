@@ -30,3 +30,4 @@ coverage
 ### custom ###
 memo.md
 /src/assets/*
+/public/img/*
