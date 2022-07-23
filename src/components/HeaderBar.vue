@@ -10,12 +10,7 @@ user_icon.value = "src/assets/スプラトゥーン3.jpeg";
   <header id="header">
     <nav class="headerNavigation">
       <div class="headerNavigation-serviceLogo">
-        <a href="/"
-          ><img
-            alt="kibela"
-            src="https://cdn.kibe.la/assets/kibela_logo-18bb447dfc0fe9b71ad3c05572b12e3f76e97de2ed3e04bfb2cde980c9055f5b.svg"
-          />
-        </a>
+        <a href="/"><img alt="logo" src="@/assets/logo.svg" /> </a>
       </div>
       <ul class="headerNavigation-menus">
         <li class="is-active">
