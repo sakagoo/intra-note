@@ -5,7 +5,6 @@ import { computed, onMounted, ref } from "vue";
 const databaseStore = useDatabaseStore();
 const user_icon = ref();
 const user_name = ref();
-user_icon.value = "/img/スプラトゥーン3.jpeg";
 
 const articles = computed(() => {
   return databaseStore.articles;
@@ -14,6 +13,10 @@ const articles = computed(() => {
 onMounted(async () => {
   await databaseStore.loadAllArticles();
   user_name.value = databaseStore.user_info.name;
+  user_icon.value =
+    "/img/" +
+    databaseStore.user_info.id.toString() +
+    databaseStore.user_info.icon;
 });
 
 defineExpose({

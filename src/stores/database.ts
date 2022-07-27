@@ -16,6 +16,7 @@ export type User = {
   id: string;
   name: string;
   mail: string;
+  icon: string;
   created_at: string;
   created_by: string;
   update_at: string;
@@ -37,9 +38,11 @@ export const useDatabaseStore = defineStore({
       const mail = localStorage.getItem("user_mail");
       const name = localStorage.getItem("user_name");
       const id = localStorage.getItem("user_id");
+      const icon = localStorage.getItem("user_icon");
       this.user_info.mail = mail ? mail : "";
       this.user_info.name = name ? name : "";
       this.user_info.id = id ? id : "";
+      this.user_info.icon = icon ? icon : "";
       return this.user_info.id !== "";
     },
   },
@@ -60,10 +63,12 @@ export const useDatabaseStore = defineStore({
               id: user.id,
               name: user.name,
               mail: user.mail,
+              icon: user.icon,
             } as User;
             localStorage.setItem("user_id", user.id);
             localStorage.setItem("user_mail", user.mail);
             localStorage.setItem("user_name", user.name);
+            localStorage.setItem("user_icon", user.icon);
             return true;
           } else {
             return false;

@@ -2,7 +2,7 @@
 
 <template>
   <aside>
-    <h3>グループ</h3>
+    <!-- <h3>グループ</h3> -->
   </aside>
 </template>
 
