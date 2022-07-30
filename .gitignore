@@ -31,3 +31,4 @@ coverage
 memo.md
 /src/assets/*
 /public/img/*
+/public/attachments/*

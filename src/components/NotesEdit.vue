@@ -5,6 +5,7 @@ import _ from "lodash";
 import { useDatabaseStore, type Airticle } from "@/stores/database";
 import { useRoute } from "vue-router";
 import router from "@/router";
+import http from "@/http-common";
 
 const route = useRoute();
 
@@ -178,6 +179,40 @@ onMounted(async () => {
   user_id.value = databaseStore.user_info.id;
 });
 
+const onPaste = async (event: ClipboardEvent) => {
+  const dataList = event.clipboardData?.items ?? [];
+  for (const item of dataList) {
+    if (!item.type.indexOf("image")) {
+      const imageFile = item.getAsFile();
+
+      if (imageFile) {
+        const fd = new FormData();
+        fd.append("image", imageFile);
+        const { data } = await http.post("/upload_image", fd);
+        const filename = data[0].filename;
+        const originalname = data[0].originalname;
+        const inputSenetens = `<img title='${originalname}' alt='image' src='/attachments/${filename}' width="480">`;
+
+        const target = event.target as HTMLInputElement;
+        const sentence = target.value;
+        const currentPos = target.selectionStart ?? 0;
+        const lastReturnPos = sentence
+          .substring(0, currentPos)
+          .lastIndexOf("\n");
+        target.value =
+          sentence.substring(0, lastReturnPos + 1) +
+          inputSenetens +
+          sentence.substring(
+            lastReturnPos + 1,
+            lastReturnPos + 1 + sentence.length
+          );
+        target.selectionStart = currentPos + inputSenetens.length;
+        target.selectionEnd = target.selectionStart;
+      }
+    }
+  }
+};
+
 defineExpose({
   submit,
   update,
@@ -197,11 +232,13 @@ defineExpose({
     <div class="contentsArea">
       <textarea
         class="contents"
+        contenteditable="true"
         :value="input"
         @input="loadArticle"
         @keydown.enter="onKeyEnter"
         @keydown.tab.exact="onKeyTab"
         @keydown.tab.shift="onKeyTabShift"
+        @paste="onPaste"
         placeholder="Markdownで本文を入力..."
       ></textarea>
       <div class="displayContents" v-html="compiledMarkdown"></div>
