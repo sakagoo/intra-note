@@ -72,6 +72,18 @@ defineExpose({
 </template>
 
 <style src="highlightjs/styles/github.css"></style>
+<style>
+pre {
+  margin-bottom: 1.6rem;
+  border: 1px solid #eeede7;
+  border-radius: 4px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  color: #4d4d4d;
+  background: #f9f8f5;
+  padding: 16px;
+}
+</style>
 <style scoped>
 #contentsBox {
   display: flex;
