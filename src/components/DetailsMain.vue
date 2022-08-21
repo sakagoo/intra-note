@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import { marked } from "marked";
+import hljs from "highlightjs";
 import { useDatabaseStore, type Airticle } from "@/stores/database";
 import { useRoute } from "vue-router";
 
@@ -14,6 +15,13 @@ const displayTitle = computed(() => {
 });
 
 const compiledMarkdown = computed(() => {
+  marked.setOptions({
+    langPrefix: "",
+    highlight: function (code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : "plaintext";
+      return hljs.highlightAuto(code, [language]).value;
+    },
+  });
   if (markdown.value) {
     return marked.parse(markdown.value, {});
   } else {
@@ -63,6 +71,7 @@ defineExpose({
   </div>
 </template>
 
+<style src="highlightjs/styles/github.css"></style>
 <style scoped>
 #contentsBox {
   display: flex;
