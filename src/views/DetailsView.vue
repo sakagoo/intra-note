@@ -5,12 +5,27 @@ import HeaderBar from "@/components/HeaderBar.vue";
 
 <template>
   <HeaderBar />
-  <DetailsMain />
+  <div id="main">
+    <div class="aside">
+      <HomeMenu />
+    </div>
+    <div class="center">
+      <DetailsMain />
+    </div>
+  </div>
 </template>
 
 <style scoped>
-.main_view {
-  margin: 0px;
-  padding: 0px;
+#main {
+  display: flex;
+  width: auto;
+}
+.aside {
+  display: flex;
+  width: 290px;
+}
+.center {
+  display: flex;
+  width: 100%;
 }
 </style>

@@ -70,7 +70,7 @@ defineExpose({
 }
 main {
   display: flex;
-  width: 80%;
+  width: 100%;
   margin: 10px;
 }
 aside {
@@ -80,7 +80,7 @@ aside {
 }
 #displayArea {
   display: block;
-  width: auto;
+  width: 100%;
   margin: 10px;
 }
 #displayTitle {
