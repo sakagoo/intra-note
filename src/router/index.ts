@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import NotesView from "../views/NotesView.vue";
 import DetailsView from "../views/DetailsView.vue";
 import SigninView from "../views/SigninView.vue";
+import SearchView from "@/views/SearchView.vue";
 import { useDatabaseStore } from "@/stores/database";
 
 const router = createRouter({
@@ -34,12 +35,9 @@ const router = createRouter({
       component: DetailsView,
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: "/search",
+      name: "search",
+      component: SearchView,
     },
   ],
 });

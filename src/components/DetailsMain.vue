@@ -17,9 +17,10 @@ const displayTitle = computed(() => {
 const compiledMarkdown = computed(() => {
   marked.setOptions({
     langPrefix: "",
-    highlight: function (code, lang) {
+    highlight: (code, lang) => {
       const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlightAuto(code, [language]).value;
+      const mk = hljs.highlightAuto(code, [language]).value;
+      return mk;
     },
   });
   if (markdown.value) {
