@@ -2,6 +2,10 @@
 import HeaderBar from "@/components/HeaderBar.vue";
 import HomeMenu from "@/components/HomeMenu.vue";
 import SearchMain from "@/components/SearchMain.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const query: string = route.query.query?.toString() ?? "";
 </script>
 
 <template>
@@ -11,7 +15,7 @@ import SearchMain from "@/components/SearchMain.vue";
       <HomeMenu />
     </div>
     <div class="center">
-      <SearchMain />
+      <SearchMain :query="query" />
     </div>
   </div>
 </template>

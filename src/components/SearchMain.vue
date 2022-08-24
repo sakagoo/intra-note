@@ -2,6 +2,10 @@
 import { useDatabaseStore } from "@/stores/database";
 import { computed, onMounted, ref } from "vue";
 
+defineProps<{
+  query: string;
+}>();
+
 const databaseStore = useDatabaseStore();
 const user_icon = ref();
 const user_name = ref();
@@ -26,6 +30,7 @@ defineExpose({
 
 <template>
   <main>
+    <h2>{{ query }}</h2>
     <div class="article" v-for="article in articles" :key="article.content_id">
       <div class="article_info">
         <img class="userIcon" :src="user_icon" alt="UserIcon" />
