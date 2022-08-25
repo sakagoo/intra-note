@@ -9,6 +9,8 @@ const title = ref("");
 const markdown = ref("");
 const route = useRoute();
 const content_id = ref(0);
+const user_icon = ref("");
+const user_name = ref("");
 
 const displayTitle = computed(() => {
   return title.value;
@@ -43,6 +45,11 @@ onMounted(async () => {
   title.value = airticle.title;
   markdown.value = airticle.markdown;
   content_id.value = id;
+  user_name.value = databaseStore.user_info.name;
+  user_icon.value =
+    "/img/" +
+    databaseStore.user_info.id.toString() +
+    databaseStore.user_info.icon;
 });
 
 defineExpose({
@@ -55,6 +62,11 @@ defineExpose({
   <div id="contentsBox">
     <main>
       <div id="displayArea">
+        <div class="user_info">
+          <img class="userIcon" :src="user_icon" alt="UserIcon" />
+          <div class="userName">{{ user_name }}</div>
+        </div>
+
         <h1 id="displayTitle">{{ displayTitle }}</h1>
         <div id="displayContents" v-html="compiledMarkdown"></div>
       </div>
@@ -118,5 +130,26 @@ aside {
 }
 #deleteLink {
   margin: 0 auto;
+}
+.user_info {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.userIcon {
+  display: flex;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: 0px;
+  margin-right: 10px;
+  align-items: center;
+}
+.userName {
+  font-size: medium;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #4d4d4d;
 }
 </style>
