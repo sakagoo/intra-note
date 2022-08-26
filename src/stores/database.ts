@@ -6,6 +6,7 @@ export type Airticle = {
   title: string;
   markdown: string;
   state: string;
+  group: string;
   created_at: string;
   created_by: string;
   update_at: string;
