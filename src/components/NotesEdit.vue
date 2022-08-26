@@ -34,7 +34,7 @@ const loadArticle = _.debounce((e: Event) => {
   input.value = target.value;
 }, 300);
 
-const submit = async () => {
+const submit = async (is_draft: boolean) => {
   const date = new Date();
   const create_at = new Intl.DateTimeFormat("ja-jp", {
     year: "numeric",
@@ -50,8 +50,8 @@ const submit = async () => {
     content_id: 0,
     title: title.value,
     markdown: input.value,
-    state: "public",
-    group: "all",
+    state: is_draft ? "draft" : "public",
+    user_group: "all",
     created_at: create_at.toLocaleString(),
     created_by: user_id.value,
     update_at: create_at.toLocaleString(),
@@ -82,7 +82,7 @@ const update = async () => {
     title: title.value,
     markdown: input.value,
     state: "public",
-    group: "all",
+    user_group: "all",
     created_at: "",
     created_by: "",
     update_at: update_at.toLocaleString(),

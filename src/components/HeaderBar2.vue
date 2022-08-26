@@ -14,7 +14,12 @@ const isEdit = "edit" === route.params.objective ? true : false;
         <a v-if="isEdit" @click.prevent.stop="$emit('update')" href="/"
           >更新する</a
         >
-        <a v-else @click.prevent.stop="$emit('submit')" href="/">投稿する</a>
+        <a v-if="!isEdit" @click.prevent.stop="$emit('saveDraft')" href="/"
+          >下書き保存</a
+        >
+        <a v-if="!isEdit" @click.prevent.stop="$emit('submit')" href="/"
+          >投稿する</a
+        >
       </div>
     </nav>
   </header>
@@ -36,6 +41,9 @@ li {
   list-style: none;
   display: inline;
   padding: 10px;
+}
+a {
+  margin: auto 10px;
 }
 .headerNavigation-menus {
   display: block;

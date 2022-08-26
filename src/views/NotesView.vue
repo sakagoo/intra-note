@@ -5,15 +5,18 @@ import { ref } from "vue";
 
 const note = ref();
 const submit = () => {
-  note.value.submit();
+  note.value.submit(false);
 };
 const update = () => {
   note.value.update();
 };
+const saveDraft = () => {
+  note.value.submit(true);
+};
 </script>
 
 <template>
-  <HeaderBar2 @submit="submit()" @update="update()" />
+  <HeaderBar2 @submit="submit()" @update="update()" @saveDraft="saveDraft()" />
   <main>
     <NotesEdit ref="note" />
   </main>

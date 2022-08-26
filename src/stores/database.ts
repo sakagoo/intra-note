@@ -6,7 +6,7 @@ export type Airticle = {
   title: string;
   markdown: string;
   state: string;
-  group: string;
+  user_group: string;
   created_at: string;
   created_by: string;
   update_at: string;
@@ -77,19 +77,34 @@ export const useDatabaseStore = defineStore({
         });
     },
     async loadAllArticles() {
-      this.articles = await http.get("/read").then((res) => {
-        return res.data;
-      });
+      this.articles = [] as Airticle[];
+      this.articles = await http
+        .get("/read", {
+          params: {
+            user_id: this.user_info.id,
+          },
+        })
+        .then((res) => {
+          return res.data;
+        });
     },
     async loadSearchArticles(search_word: string) {
+      this.articles = [] as Airticle[];
       this.articles = await http
-        .get(`/search?search_word=${search_word}`)
+        //.get(`/search?search_word=${search_word}`)
+        .get("/search", {
+          params: {
+            search_word: search_word,
+            user_id: this.user_info.id,
+          },
+        })
         .then((res) => {
           return res.data;
         });
     },
     async postArticles(article: Airticle): Promise<number> {
       return await http.post("/new_contents", { article }).then((res) => {
+        console.log(res);
         return res.data[0].content_id as number;
       });
     },
