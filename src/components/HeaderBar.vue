@@ -42,9 +42,24 @@ onMounted(async () => {
         </li> -->
       </ul>
       <div class="headerNavigation-actions">
-        <router-link :to="{ name: 'notes' }"
-          ><span>記事を書く</span></router-link
-        >
+        <form action="/search" method="get">
+          <div class="searchBox">
+            <input
+              type="search"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              placeholder="検索"
+              value=""
+              name="query"
+            />
+          </div>
+        </form>
+        <div class="article-entry-botton">
+          <router-link :to="{ name: 'notes' }"
+            ><span>記事を書く</span></router-link
+          >
+        </div>
         <img class="headerUserIcon" :src="user_icon" alt="UserIcon" />
       </div>
     </nav>
@@ -103,5 +118,23 @@ a {
   height: 40px;
   margin-left: 20px;
   align-items: center;
+}
+.searchBox {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 0;
+  width: 150px;
+  height: 40px;
+}
+.article-entry-botton {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 0;
+  width: 150px;
+  height: 40px;
 }
 </style>

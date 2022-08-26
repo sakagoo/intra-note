@@ -2,7 +2,7 @@
 import { useDatabaseStore } from "@/stores/database";
 import { computed, onMounted, ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   query: string;
 }>();
 
@@ -15,7 +15,7 @@ const articles = computed(() => {
 });
 
 onMounted(async () => {
-  await databaseStore.loadAllArticles();
+  await databaseStore.loadSearchArticles(props.query);
   user_name.value = databaseStore.user_info.name;
   user_icon.value =
     "/img/" +

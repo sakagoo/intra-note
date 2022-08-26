@@ -80,6 +80,13 @@ export const useDatabaseStore = defineStore({
         return res.data;
       });
     },
+    async loadSearchArticles(search_word: string) {
+      this.articles = await http
+        .get(`/search?search_word=${search_word}`)
+        .then((res) => {
+          return res.data;
+        });
+    },
     async postArticles(article: Airticle): Promise<number> {
       return await http.post("/new_contents", { article }).then((res) => {
         return res.data[0].content_id as number;
