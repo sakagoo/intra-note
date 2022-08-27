@@ -4,6 +4,7 @@ import NotesView from "../views/NotesView.vue";
 import DetailsView from "../views/DetailsView.vue";
 import SigninView from "../views/SigninView.vue";
 import SearchView from "@/views/SearchView.vue";
+import UserView from "@/views/UserView.vue";
 import { useDatabaseStore } from "@/stores/database";
 
 const router = createRouter({
@@ -13,6 +14,11 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/:user_id",
+      name: "user",
+      component: UserView,
     },
     {
       path: "/signin",

@@ -102,6 +102,18 @@ export const useDatabaseStore = defineStore({
           return res.data;
         });
     },
+    async loadDraftArticles() {
+      this.articles = [] as Airticle[];
+      this.articles = await http
+        .get("/read_draft", {
+          params: {
+            user_id: this.user_info.id,
+          },
+        })
+        .then((res) => {
+          return res.data;
+        });
+    },
     async postArticles(article: Airticle): Promise<number> {
       return await http.post("/new_contents", { article }).then((res) => {
         console.log(res);

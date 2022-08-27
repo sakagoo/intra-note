@@ -7,17 +7,13 @@ const user_icon = ref();
 const user_name = ref();
 
 user_icon.value =
-  "/img/" +
-  databaseStore.user_info.id.toString() +
-  databaseStore.user_info.icon;
+  "/img/" + databaseStore.user_info.id + databaseStore.user_info.icon;
 
 onMounted(async () => {
   await databaseStore.loadAllArticles();
   user_name.value = databaseStore.user_info.name;
   user_icon.value =
-    "/img/" +
-    databaseStore.user_info.id.toString() +
-    databaseStore.user_info.icon;
+    "/img/" + databaseStore.user_info.id + databaseStore.user_info.icon;
 });
 </script>
 
@@ -30,6 +26,15 @@ onMounted(async () => {
       <ul class="headerNavigation-menus">
         <li class="is-active">
           <router-link :to="{ name: 'home' }"><span>ホーム</span></router-link>
+        </li>
+        <li class="">
+          <router-link
+            :to="{
+              name: 'user',
+              params: { user_id: '@' + databaseStore.user_info.id },
+            }"
+            ><span>下書き</span></router-link
+          >
         </li>
         <!-- <li class="">
           <a href="/groups">グループ</a>
